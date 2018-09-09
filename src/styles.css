@@ -1,0 +1,42 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+header a {
+  color:white;
+}
+
+
+.row{
+  margin-top: 5px
+}
+label {
+  display: block;
+}
+
+
+.internalbox{
+  border: 1px solid #000;
+  margin: 5px;
+  padding:5px;
+  display:block;
+}
+.internalbox:hover{
+  background-color: #ccd;
+  cursor: pointer;
+}
+.fullsize{
+  max-width: 100%;
+  width: 100%;
+}
+.modal-dialog {
+  width: 98%;
+  max-width: 98%;
+  height: 96%;
+  padding: 0;
+  margin: 1%;
+}
+.modal-content {
+  height: 98%;
+  min-height: 98%;
+  height: auto;
+  border-radius: 0;
+}
