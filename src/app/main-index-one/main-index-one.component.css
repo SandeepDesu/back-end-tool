@@ -22,3 +22,83 @@ legend
   padding: 5px 5px 5px 10px;
   background-color: #ffffff;
 }
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 100%;
+  border-radius: 5px;
+  margin:5%
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+ 
+}
+
+.card-header-sample {
+    text-align: center;
+    font-weight: bold;
+    height:75px;
+    padding:3px;
+    font-size: 19px;
+    background: #007bff;
+    color:white;
+
+}
+
+.card-header-sample-one {
+  text-align: center;
+  font-weight: bold;
+  height:50px;
+  padding:3px;
+  font-size: 19px;
+
+}
+
+.card-body-sample > img {
+  border-radius: 50%;
+  position:absolute;
+  top:51px;
+  left:45%;
+}
+
+.card-body-sample {
+  height:200px;
+  text-align: center;
+  padding: 40px;
+
+}
+
+.sample-one {
+  margin-top:15px;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: ridge;
+  background-color:#f8f7ff;
+}
+
+hr { 
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: 70px;
+  margin-right: 70px;
+  border-style: inset;
+  border-width: 1px;
+} 
+
+.sample-one-body > .card-text {
+  text-align: center;
+  padding: 5px;
+}
+
+.sample-one-body {
+  text-align: center;
+}
+
+.sample-body{
+  word-wrap: break-word;
+  text-align: center;
+  padding: 10px;
+  margin:10px;
+}
