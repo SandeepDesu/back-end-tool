@@ -13,10 +13,10 @@ import { NotFoundComponent } from './not-found/not-found.component';
 
 
 const appRoutes: Routes = [
-  { path: '', component: ReportComponent },
+  { path: '', component: MainIndexOneComponent },
   { path: 'approve', component: ApproveViewComponent },
-  { path: 'main-one', component: MainIndexOneComponent },
   { path: 'main-two', component: MainIndexTwoComponent },
+  { path: 'report', component: ReportComponent },
   { path: 'list', component: ListComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: 'view', component: ViewComponent },
