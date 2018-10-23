@@ -1,7 +1,7 @@
 <div class="main-container container">
   <form id="issueform">
     <div class="row">
-      <div class="col-2">
+      <div class="col-md-2">
         <div class="form-group">
           <label for="sel1">Who are you?</label>
           <select name="reportinguserteam" class="form-control" id="sel1">
@@ -14,7 +14,7 @@
         </div>
       </div>
 
-      <div class="col-3">
+      <div class="col-md-3">
         <div class="form-group">
           <label for="sel3">I am reporting for project, </label>
           <select class="form-control" id="sel2" name="projectname">
@@ -26,10 +26,10 @@
         </div>
       </div>
 
-      <div class="col-2">
+      <div class="col-md-2">
         <div class="form-group">
           <label for="sel3">and, I am reporting a </label>
-          <select class="form-control" id="sel3" name="issuetype">
+          <select class="form-control" id="sel3" name="issuetype" (change)="bugSelection($event.target.value)">
             <option value=""></option>
             <option value="Bug">Bug</option>
             <option value="enhancement">Enhancement</option>
@@ -37,7 +37,7 @@
           </select>
         </div>
       </div>
-      <div class="col-3 bugtype d-none">
+      <!-- <div *ngIf="bugList.length > 0" class="col-md-3 bugtype d-none">
         <div class="form-group">
           <label for="sel8">Bug is that,</label>
           <select class="form-control" id="sel8" name="bugtype">
@@ -46,10 +46,40 @@
             <option value="datainvalid">data is not valid</option>
           </select>
         </div>
-      </div>
-
+      </div> -->
     </div>
-    <div class="row">
+    <div *ngIf="selectedBug === 'Bug'" class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="td">Enter td</label>
+          <input name="td" type="text" class="form-control mb-2 mr-sm-2" value="" placeholder="Enter td">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="env">Environment </label>
+          <select class="form-control" id="env" name="environment" (change)="environmentSelection($event.target.value)">
+            <option value="">Prod</option>
+            <option value="Bug">Np</option>
+            <option value="enhancement">Both</option>
+            <option value="changerequest">N/A</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="name">View Name</label>
+          <input name="name" type="text" class="form-control mb-2 mr-sm-2" value="" placeholder="View Name">
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="dis">Discription</label>
+          <textarea name="dis" type="text" class="form-control mb-2 mr-sm-2" value="" placeholder="Discription"></textarea>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row">
       <div class="col-12">
         <div class="form-group">
           <label for="sel2">API you called, (copy the url from postman you called):</label>
@@ -143,6 +173,6 @@
       <div class="col-1 loading d-none">
         <div class="loader"></div>
       </div>
-    </div>
+    </div> -->
   </form>
 </div>
