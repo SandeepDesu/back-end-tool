@@ -52,17 +52,50 @@
       <div class="col-md-3">
         <div class="form-group">
           <label for="td">Enter td</label>
-          <input name="td" type="text" class="form-control mb-2 mr-sm-2" value="" placeholder="Enter td">
+          <input (keyup)="getTdValue($event)" name="td" type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter td">
         </div>
       </div>
       <div class="col-md-3">
         <div class="form-group">
           <label for="env">Environment </label>
           <select class="form-control" id="env" name="environment" (change)="environmentSelection($event.target.value)">
-            <option value="">Prod</option>
-            <option value="Bug">Np</option>
-            <option value="enhancement">Both</option>
-            <option value="changerequest">N/A</option>
+            <option value=""></option>
+            <option value="Prod">Prod</option>
+            <option value="Np">Np</option>
+            <option value="Both">Both</option>
+            <option value="N/A">N/A</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="name">View Name</label>
+          <input name="name" type="text" class="form-control mb-2 mr-sm-2" value="" placeholder="View Name">
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="dis">Discription</label>
+          <textarea rows="10" name="dis" type="text" class="form-control mb-2 mr-sm-2" value="" placeholder="Discription"></textarea>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isEnvironmentChanged" class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="td">Enter td</label>
+          <input  name="td" type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter td">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="env">Environment </label>
+          <select class="form-control" id="env" name="environment">
+            <option value=""></option>
+            <option value="Prod">Prod</option>
+            <option value="Np">Np</option>
+            <option value="Both">Both</option>
+            <option value="N/A">N/A</option>
           </select>
         </div>
       </div>

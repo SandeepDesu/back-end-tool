@@ -7,13 +7,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportComponent implements OnInit {
   selectedBug = null;
+  tdname: string;
+  isEnvironmentChanged = false;
   constructor() { }
 
   ngOnInit() {
   }
 
 
-  bugSelection(event) {
-    this.selectedBug = event;
+  bugSelection(value) {
+    this.selectedBug = value;
   }
+
+  getTdValue(event){
+    if(event.target){
+      this.tdname = event.target.value;
+    }
+  }
+
+  environmentSelection(value) {
+    if(value && this.tdname){
+      this.isEnvironmentChanged = true;
+    }else{
+      this.isEnvironmentChanged = false;
+    }
+    
+  }
+
 }
