@@ -9,29 +9,34 @@ export class ReportComponent implements OnInit {
   selectedBug = null;
   tdname: string;
   isEnvironmentChanged = false;
+  selectedPermission: string;
+  selectedType: string;
   constructor() { }
 
   ngOnInit() {
   }
 
+  selectType(value) {
+    this.selectedType = value;
+    this.isEnvironmentChanged = false;
+    this.selectedBug = null;
+    this.selectedPermission = null;
+  }
 
   bugSelection(value) {
     this.selectedBug = value;
   }
 
-  getTdValue(event){
-    if(event.target){
-      this.tdname = event.target.value;
+  environmentSelection(value) {
+    if (value && this.selectedBug) {
+      this.isEnvironmentChanged = true;
+    } else {
+      this.isEnvironmentChanged = false;
     }
   }
 
-  environmentSelection(value) {
-    if(value && this.tdname){
-      this.isEnvironmentChanged = true;
-    }else{
-      this.isEnvironmentChanged = false;
-    }
-    
+  permissionSelection(value) {
+    this.selectedPermission = value;
   }
 
 }
