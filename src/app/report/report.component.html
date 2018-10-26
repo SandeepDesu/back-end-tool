@@ -95,7 +95,7 @@
           <label for="request-id">Steps to recreate</label>
           <input name="request-id" id="request-id" type="text" class="form-control mb-2 mr-sm-2" placeholder="Steps to recreate">
         </div>
-        
+
       </div>
       <div class="col-md-6" *ngIf="selectedBug === 'pg' && isEnvironmentChanged">
         <table class="table table-striped" id="issues">
@@ -108,7 +108,30 @@
               <th>&nbsp;</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr>
+              <td>
+                <div class="form-group">
+                  <input name="name" type="text" class="form-control mb-2 mr-sm-2" placeholder="ID">
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <input name="name" type="text" class="form-control mb-2 mr-sm-2" placeholder="Issue">
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <input name="name" type="text" class="form-control mb-2 mr-sm-2" placeholder="Reported By">
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <input name="name" type="text" class="form-control mb-2 mr-sm-2" placeholder="Reported on">
+                </div>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
       <div class="col-md-12" *ngIf="isDisplayDiscription()">
