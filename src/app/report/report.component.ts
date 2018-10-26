@@ -18,9 +18,8 @@ export class ReportComponent implements OnInit {
 
   selectType(value) {
     this.selectedType = value;
-    this.isEnvironmentChanged = false;
     this.selectedBug = null;
-    this.selectedPermission = null;
+    this.isEnvironmentChanged = false;
   }
 
   bugSelection(value) {
@@ -28,15 +27,21 @@ export class ReportComponent implements OnInit {
   }
 
   environmentSelection(value) {
-    if (value && this.selectedBug) {
-      this.isEnvironmentChanged = true;
-    } else {
-      this.isEnvironmentChanged = false;
-    }
+    this.isEnvironmentChanged = true;
   }
 
-  permissionSelection(value) {
-    this.selectedPermission = value;
+  isDisplayDiscription() {
+    if (this.selectedType === 'Unexpected_result' && this.selectedBug === 'kafka' && this.isEnvironmentChanged) {
+      return true;
+    }
+    if (this.selectedType === 'Validation' && this.selectedBug === 'kafka' && this.isEnvironmentChanged) {
+      return true;
+    }
+    if (this.selectedType !== 'Unexpected_result' && this.selectedType !== 'Validation' && this.selectedBug && this.isEnvironmentChanged) {
+      return true;
+    }
+    return false;
   }
+
 
 }

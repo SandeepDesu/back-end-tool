@@ -6,22 +6,15 @@
           <label for="sel1">Who are you?</label>
           <select name="reportinguserteam" class="form-control" id="sel1">
             <option value=""></option>
-            <!--<#list consumers as consumer>-->
-            <!--&lt;!&ndash;<option value="${consumer}">${consumer}</option>&ndash;&gt;-->
-            <!--</#list>-->
             <option value="Other">Others</option>
           </select>
         </div>
       </div>
-
       <div class="col-md-3">
         <div class="form-group">
           <label for="sel3">I am reporting for project, </label>
           <select class="form-control" id="sel2" name="projectname">
             <option value=""></option>
-            <!--<#list projects as project>-->
-            <!--&lt;!&ndash;<option value="${project}">${project}</option>&ndash;&gt;-->
-            <!--</#list>-->
           </select>
         </div>
       </div>
@@ -31,27 +24,29 @@
           <select class="form-control" id="sel3" name="issuetype" (change)="selectType($event.target.value)">
             <option value=""></option>
             <option value="Bug">Bug</option>
-            <option value="enhancement">Enhancement</option>
-            <option value="changerequest">Change request</option>
+            <option value="Permission">Permission</option>
+            <option value="Performance">Performance</option>
+            <option value="Unexpected_result">Unexpected result</option>
+            <option value="Data_dump">Data dump</option>
+            <option value="Validation">Validation</option>
           </select>
         </div>
       </div>
     </div>
-    <div *ngIf="selectedType === 'Bug'" class="row">
-      <div class="col-md-3">
+    <div class="row" *ngIf="selectedType !== 'Data_dump'">
+      <div *ngIf="selectedType" class="col-md-3">
         <div class="form-group">
-          <label for="bug">Enter td</label>
-          <select class="form-control" id="bug" name="environment" (change)="bugSelection($event.target.value)">
+          <label for="bug">Enter </label>
+          <select class="form-control" id="bug" (change)="bugSelection($event.target.value)">
             <option value=""></option>
             <option value="td">td</option>
             <option value="pg">pg</option>
             <option value="api">api</option>
             <option value="kafka">kafka</option>
           </select>
-          <!-- <input (keyup)="getTdValue($event)" name="td" type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter td"> -->
         </div>
       </div>
-      <div class="col-md-3">
+      <div *ngIf="selectedBug" class="col-md-3">
         <div class="form-group">
           <label for="env">Environment </label>
           <select class="form-control" id="env" name="environment" (change)="environmentSelection($event.target.value)">
@@ -63,179 +58,85 @@
           </select>
         </div>
       </div>
-      <div class="col-md-6" *ngIf="selectedBug === 'td'">
-        <div class="form-group">
+      <div class="col-md-6" *ngIf="selectedBug !== 'pg' && isEnvironmentChanged">
+        <div class="form-group" *ngIf="selectedBug === 'td'">
           <label for="name">View Name</label>
-          <input name="name" type="text" class="form-control mb-2 mr-sm-2" value="" placeholder="View Name">
+          <input name="name" type="text" class="form-control mb-2 mr-sm-2" placeholder="View Name">
         </div>
+        <div class="form-group" *ngIf="selectedBug === 'api'">
+          <label for="name">Api url </label>
+          <input name="name" type="text" class="form-control mb-2 mr-sm-2" placeholder="Api url ">
+        </div>
+        <div class="form-group" *ngIf="selectedBug === 'api' && selectedType === 'Bug'">
+          <label for="request-id">Vcap-request-id</label>
+          <input name="request-id" id="request-id" type="text" class="form-control mb-2 mr-sm-2" placeholder="Vcap-request-id">
+        </div>
+        <div class="form-group" *ngIf="selectedBug === 'api' && selectedType === 'Permission'">
+          <label for="request-id"> Client id </label>
+          <input name="request-id" id="request-id" type="text" class="form-control mb-2 mr-sm-2" placeholder="Client id ">
+        </div>
+        <div class="form-group" *ngIf="selectedBug === 'kafka'">
+          <label for="name"> Topic name </label>
+          <input name="name" type="text" class="form-control mb-2 mr-sm-2" placeholder="Topic name">
+        </div>
+        <div class="form-group" *ngIf="selectedBug === 'kafka' && selectedType === 'Permission'">
+          <label for="request-id">Your cert string</label>
+          <input name="request-id" id="request-id" type="text" class="form-control mb-2 mr-sm-2" placeholder="Your cert string">
+        </div>
+        <div class="form-group" *ngIf="selectedBug === 'kafka' && selectedType === 'Unexpected_result'">
+          <label for="request-id">Your expected result</label>
+          <input name="request-id" id="request-id" type="text" class="form-control mb-2 mr-sm-2" placeholder="Your expected result">
+        </div>
+        <div class="form-group" *ngIf="selectedBug === 'kafka' && selectedType === 'Unexpected_result'">
+          <label for="request-id">Result we provided</label>
+          <input name="request-id" id="request-id" type="text" class="form-control mb-2 mr-sm-2" placeholder="Result we provided">
+        </div>
+        <div class="form-group" *ngIf="selectedBug === 'kafka' && selectedType === 'Unexpected_result'">
+          <label for="request-id">Steps to recreate</label>
+          <input name="request-id" id="request-id" type="text" class="form-control mb-2 mr-sm-2" placeholder="Steps to recreate">
+        </div>
+        
       </div>
-      <div class="col-md-6" *ngIf="selectedBug === 'pg'">
+      <div class="col-md-6" *ngIf="selectedBug === 'pg' && isEnvironmentChanged">
         <table class="table table-striped" id="issues">
           <thead>
-          <tr>
-            <th>ID</th>
-            <th>Issue</th>
-            <th>Reported By</th>
-            <th>Reported on</th>
-            <th>&nbsp;</th>
-          </tr>
+            <tr>
+              <th>ID</th>
+              <th>Issue</th>
+              <th>Reported By</th>
+              <th>Reported on</th>
+              <th>&nbsp;</th>
+            </tr>
           </thead>
           <tbody></tbody>
         </table>
       </div>
-      <div class="col-md-12" *ngIf="selectedBug !== null">
+      <div class="col-md-12" *ngIf="isDisplayDiscription()">
         <div class="form-group">
           <label for="dis">Discription</label>
           <textarea rows="10" name="dis" type="text" class="form-control mb-2 mr-sm-2" value="" placeholder="Discription"></textarea>
         </div>
       </div>
     </div>
-    <div *ngIf="isEnvironmentChanged" class="row">
-      <div class="col-md-3">
+    <div class="row" *ngIf="selectedType === 'Data_dump'">
+      <div class="col-md-6">
         <div class="form-group">
-          <label for="permission">Permission</label>
-          <select class="form-control" id="permission" name="environment" (change)="permissionSelection($event.target.value)">
-            <option value=""></option>
-            <option value="td">td</option>
-            <option value="pg">pg</option>
-            <option value="api">api</option>
-            <option value="kafka">kafka</option>
-          </select>
+          <label for="name">Where do you want the dataset from?</label>
+          <input name="name" type="text" class="form-control mb-2 mr-sm-2" placeholder="Where do you want the dataset from?">
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-6">
         <div class="form-group">
-          <label for="env">Environment </label>
-          <select class="form-control" id="env" name="environment">
-            <option value=""></option>
-            <option value="Prod">Prod</option>
-            <option value="Np">Np</option>
-            <option value="Both">Both</option>
-            <option value="N/A">N/A</option>
-          </select>
+          <label for="name">Give us the filter?</label>
+          <input name="name" type="text" class="form-control mb-2 mr-sm-2" placeholder="Give us the filter?">
         </div>
       </div>
-      <div class="col-md-6" *ngIf="selectedPermission === 'td'">
-        <div class="form-group">
-          <label for="name">View Name</label>
-          <input name="name" type="text" class="form-control mb-2 mr-sm-2" value="" placeholder="View Name">
-        </div>
-      </div>
-      <div class="col-md-6" *ngIf="selectedPermission === 'pg'">
-        <table class="table table-striped" id="issues">
-          <thead>
-          <tr>
-            <th>ID</th>
-            <th>Issue</th>
-            <th>Reported By</th>
-            <th>Reported on</th>
-            <th>&nbsp;</th>
-          </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <div class="col-md-12" *ngIf="selectedPermission !== null">
+      <div class="col-md-12">
         <div class="form-group">
           <label for="dis">Discription</label>
           <textarea rows="10" name="dis" type="text" class="form-control mb-2 mr-sm-2" value="" placeholder="Discription"></textarea>
         </div>
       </div>
     </div>
-    <!-- <div class="row">
-      <div class="col-12">
-        <div class="form-group">
-          <label for="sel2">API you called, (copy the url from postman you called):</label>
-          <input name="apiurl" type="text" class="form-control mb-2 mr-sm-2" value="" placeholder="Paste the api url you called to insights/layers.">
-        </div>
-      </div>
-
-    </div>
-
-    <div class="row d-none enrow">
-      <div class="col-3">
-        <div class="form-group">
-          <label for="sel4">I want you to,</label>
-          <select class="form-control" id="sel4" name="enaction">
-            <option value=""></option>
-            <option value="add">add</option>
-            <option value="update">update</option>
-            <option value="update">delete</option>
-            <option value="increase">increase</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-3">
-        <div class="form-group">
-          <label for="sel5">&nbsp;</label>
-          <select class="form-control" id="sel5" name="entype">
-            <option value=""></option>
-            <option value="data field">data field</option>
-            <option value="api endpoint">api endpoint</option>
-            <option value="performance">performance</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <div class="row d-none enrowfield">
-      <div class="col-3">
-        <div class="form-group">
-          <label for="sel6">Named,</label>
-          <input type="text" name="enfieldname" class="form-control mb-2 mr-sm-2" placeholder="name of field/api" value="">
-        </div>
-      </div>
-      <div class="col-4">
-        <div class="form-group">
-          <label for="sel7">I need this enhancement because,</label>
-          <input type="text" name="enreason" class="form-control mb-2 mr-sm-2" placeholder="reason for the enhancement" value="">
-        </div>
-      </div>
-    </div>
-
-    <div class="row d-none bugrow datainvalid">
-      <div class="col-4">
-        <div class="form-group">
-          <label for="sel9">the datafield in problem is:</label>
-          <input type="text" name="bugfield" class="form-control mb-2 mr-sm-2" placeholder="Data field to check." value="">
-        </div>
-      </div>
-      <div class="col-4">
-        <div class="form-group">
-          <label for="sel9">I was expecting data to be:</label>
-          <input type="text" name="expectedresult" class="form-control mb-2 mr-sm-2" placeholder="Expected" value="">
-        </div>
-      </div>
-      <div class="col-4">
-        <div class="form-group">
-          <label for="sel10">But the data I received was,</label>
-          <input type="text" name="actualresult" class="form-control mb-2 mr-sm-2" placeholder="Received result from layers api" value="">
-        </div>
-      </div>
-      <div class="col-5">
-        <div class="form-group">
-          <label for="sel11">and the support ticket id I got from api is:</label>
-          <input type="text" name="supportticket" class="form-control mb-2 mr-sm-2" value="" placeholder="Enter Ticket id you got from reponse header Vcap-request-id or x-support-ticket-id or request id" />
-        </div>
-      </div>
-    </div>
-    <div class="row d-none commentrow">
-      <div class="col-5">
-        <div class="form-group">
-          <label for="comment">Comment:</label>
-          <textarea name="comment" class="form-control" rows="5" placeholder="Please provide brief description here..."></textarea>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-1">
-        <div class="form-group">
-          <button type="button" class="btn btn-primary" id="submit"><i class="icon-user icon-white"></i>Submit</button>
-        </div>
-      </div>
-      <div class="col-1 loading d-none">
-        <div class="loader"></div>
-      </div>
-    </div> -->
   </form>
 </div>
